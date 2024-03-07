@@ -69,6 +69,13 @@ export async function convertToTailwindCSS(
   } catch {}
 
   try {
+    const id = nanoid();
+    const wrapped = wrapCSS(id, input);
+    const converted = await tailwindConverter.convertCSS(wrapped);
+    return converted.nodes.flatMap((node) => node.tailwindClasses).join(" ");
+  } catch {}
+
+  try {
     return (await tailwindConverter.convertCSS(input)).convertedRoot.toString();
   } catch (e) {
     Log.error(e);
