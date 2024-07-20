@@ -157,7 +157,7 @@ export class WorkspaceFolderClient {
   }
 
   protected async setTailwindConfigFromFile(filePath: string | null) {
-    if (filePath) {
+    if (filePath && !filePath.includes("node_modules")) {
       try {
         this.converterConfig.tailwindConfig = await loadConfigFile(filePath);
       } catch (e) {
